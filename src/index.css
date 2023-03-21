@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.material-symbols-outlined.md-18 { font-size: 18px; }
+.material-symbols-outlined.md-24 { font-size: 24px; }
+.material-symbols-outlined.md-36 { font-size: 36px; }
+.material-symbols-outlined.md-48 { font-size: 48px; }
+.material-symbols-outlined.md-large { font-size: 288px; }
+
+:root {
+    font-size: 16px;
+    font-family: 'Lexend', sans-serif;
+    @apply scroll-smooth bg-white antialiased
+}
+
+
+html, body {
+    @apply h-full;
+    overflow-y: hidden;
+}
