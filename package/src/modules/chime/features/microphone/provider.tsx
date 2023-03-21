@@ -1,4 +1,3 @@
-import { ConsoleLogger, DefaultDeviceController, LogLevel } from "amazon-chime-sdk-js"
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react"
 import { useChime } from "../../provider";
 

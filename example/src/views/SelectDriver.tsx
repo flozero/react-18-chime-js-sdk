@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { useChimeMicrophone } from "../modules/chime/features/microphone/provider"
+import { useChimeMicrophone } from "react-18-amazon-chime-js-sdk"
+
 export const SelectDriverView = () => {
 
     const microphone = useChimeMicrophone()
