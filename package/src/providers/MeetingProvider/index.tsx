@@ -1,4 +1,3 @@
-import { AudioInputDevice } from "amazon-chime-sdk-js";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 // import { AudioVideoProvider } from '../AudioVideoProvider';
@@ -14,19 +13,12 @@ import {useLogger } from "../LoggerProvider";
 import MeetingManager from "./MeetingManager";
 
 interface Props {
-  onDeviceReplacement?: (
-    nextDevice: string,
-    currentDevice: AudioInputDevice
-  ) => Promise<AudioInputDevice>;
   children: ReactNode
 }
 
 export const MeetingContext = createContext<MeetingManager | null>(null);
 
-export const MeetingProvider = ({
-	onDeviceReplacement,
-	children,
-} : Props) => {
+export const MeetingProvider = ({ children } : Props) => {
 	const logger = useLogger();
 	const [meetingManager] = useState(() => new MeetingManager(logger));
 

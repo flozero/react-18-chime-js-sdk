@@ -17,7 +17,7 @@ import {
 	MeetingSessionStatusCode,
 	VideoInputDevice,
 } from "amazon-chime-sdk-js";
-  
+
 import {
 	DeviceLabels,
 	DeviceLabelTrigger,
@@ -25,12 +25,11 @@ import {
 	MeetingStatus,
 } from "../../types";
 import {
-	AttendeeResponse,
 	FullDeviceInfoType,
 	MeetingManagerJoinOptions,
 	ParsedJoinParams,
 } from "./types";
-  
+
 function noOpDeviceLabelHook(): Promise<MediaStream> {
 	return Promise.resolve(new MediaStream());
 }
@@ -50,27 +49,22 @@ export class MeetingManager implements AudioVideoObserver {
 
 	meetingId: string | null = null;
 
-	getAttendee?: (
-    chimeAttendeeId: string,
-    externalUserId?: string
-  ) => Promise<AttendeeResponse>;
+	getAttendee? : (
+		chimeAttendeeId: string,
+		externalUserId?: string
+	) => Promise<any>;
 
 	selectedAudioOutputDevice: string | null = null;
 
-	selectedAudioOutputDeviceObservers: ((deviceId: string | null) => void)[] =
-		[];
+	selectedAudioOutputDeviceObservers: ((deviceId: string | null) => void)[] = [];
 
 	selectedAudioInputDevice: AudioInputDevice | undefined;
 
-	selectedAudioInputDeviceObservers: ((
-    device: AudioInputDevice | undefined
-  ) => void)[] = [];
+	selectedAudioInputDeviceObservers: (( device: AudioInputDevice | undefined ) => void)[] = [];
 
 	selectedVideoInputDevice: VideoInputDevice | undefined;
 
-	selectedVideoInputDeviceObservers: ((
-    device: VideoInputDevice | undefined
-  ) => void)[] = [];
+	selectedVideoInputDeviceObservers: (( device: VideoInputDevice | undefined ) => void)[] = [];
 
 	audioInputDevices: MediaDeviceInfo[] | null = null;
 
@@ -80,9 +74,7 @@ export class MeetingManager implements AudioVideoObserver {
 
 	deviceLabelTriggerStatus = DeviceLabelTriggerStatus.UNTRIGGERED;
 
-	deviceLabelTriggerStatusObservers: ((
-    status: DeviceLabelTriggerStatus
-  ) => void)[] = [];
+	deviceLabelTriggerStatusObservers: (( status: DeviceLabelTriggerStatus ) => void)[] = [];
 
 	deviceLabelTriggerObservers: (() => void)[] = [];
 
@@ -94,14 +86,10 @@ export class MeetingManager implements AudioVideoObserver {
 
 	audioVideoCallbacks: ((audioVideo: AudioVideoFacade | null) => void)[] = [];
 
-	devicesUpdatedCallbacks: ((fullDeviceInfo: FullDeviceInfoType) => void)[] =
-		[];
+	devicesUpdatedCallbacks: ((fullDeviceInfo: FullDeviceInfoType) => void)[] = [];
 
 	private logger: Logger;
-
-	private meetingEventObserverSet = new Set<
-    (name: EventName, attributes: EventAttributes) => void
-  >();
+	private meetingEventObserverSet = new Set<(name: EventName, attributes: EventAttributes) => void>();
 
 	private eventDidReceiveRef: EventObserver;
 
@@ -416,9 +404,9 @@ export class MeetingManager implements AudioVideoObserver {
 		}
 		if (
 			isAudioDeviceRequested &&
-      !this.selectedAudioOutputDevice &&
-      this.audioOutputDevices &&
-      this.audioOutputDevices.length
+			!this.selectedAudioOutputDevice &&
+			this.audioOutputDevices &&
+			this.audioOutputDevices.length
 		) {
 			this.selectedAudioOutputDevice = this.audioOutputDevices[0].deviceId;
 			if (new DefaultBrowserBehavior().supportsSetSinkId()) {
@@ -437,9 +425,9 @@ export class MeetingManager implements AudioVideoObserver {
 		}
 		if (
 			isVideoDeviceRequested &&
-      !this.selectedVideoInputDevice &&
-      this.videoInputDevices &&
-      this.videoInputDevices.length
+			!this.selectedVideoInputDevice &&
+			this.videoInputDevices &&
+			this.videoInputDevices.length
 		) {
 			this.selectedVideoInputDevice = this.videoInputDevices[0].deviceId;
 			this.publishSelectedVideoInputDevice();
@@ -568,10 +556,7 @@ export class MeetingManager implements AudioVideoObserver {
 	unsubscribeFromSelectedVideoInputDevice = (
 		callbackToRemove: (device: VideoInputDevice | undefined) => void
 	): void => {
-		this.selectedVideoInputDeviceObservers =
-      this.selectedVideoInputDeviceObservers.filter(
-      	(callback) => callback !== callbackToRemove
-      );
+		this.selectedVideoInputDeviceObservers = this.selectedVideoInputDeviceObservers.filter((callback) => callback !== callbackToRemove);
 	};
 
 	private publishSelectedVideoInputDevice = (): void => {
@@ -589,10 +574,7 @@ export class MeetingManager implements AudioVideoObserver {
 	unsubscribeFromSelectedAudioInputDevice = (
 		callbackToRemove: (device: AudioInputDevice) => void
 	): void => {
-		this.selectedAudioInputDeviceObservers =
-      this.selectedAudioInputDeviceObservers.filter(
-      	(callback) => callback !== callbackToRemove
-      );
+		this.selectedAudioInputDeviceObservers = this.selectedAudioInputDeviceObservers.filter((callback) => callback !== callbackToRemove );
 	};
 
 	private publishSelectedAudioInputDevice = (): void => {
@@ -610,10 +592,7 @@ export class MeetingManager implements AudioVideoObserver {
 	unsubscribeFromSelectedAudioOutputDevice = (
 		callbackToRemove: (deviceId: string | null) => void
 	): void => {
-		this.selectedAudioOutputDeviceObservers =
-      this.selectedAudioOutputDeviceObservers.filter(
-      	(callback) => callback !== callbackToRemove
-      );
+		this.selectedAudioOutputDeviceObservers = this.selectedAudioOutputDeviceObservers.filter((callback) => callback !== callbackToRemove);
 	};
 
 	private publishSelectedAudioOutputDevice = (): void => {
@@ -668,10 +647,7 @@ export class MeetingManager implements AudioVideoObserver {
 	unsubscribeFromDeviceLabelTriggerStatus = (
 		callbackToRemove: (permission: DeviceLabelTriggerStatus) => void
 	): void => {
-		this.deviceLabelTriggerStatusObservers =
-      this.deviceLabelTriggerStatusObservers.filter(
-      	(callback) => callback !== callbackToRemove
-      );
+		this.deviceLabelTriggerStatusObservers = this.deviceLabelTriggerStatusObservers.filter((callback) => callback !== callbackToRemove);
 	};
 
 	private publishDeviceLabelTriggerStatus = (): void => {

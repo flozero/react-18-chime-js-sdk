@@ -9,11 +9,6 @@ export interface MeetingManagerJoinOptions {
   activeSpeakerPolicy?: ActiveSpeakerPolicy;
 }
 
-export interface AttendeeResponse {
-  name?: string;
-  [attribute: string]: any;
-}
-
 export type ParsedJoinParams = {
   deviceLabels: DeviceLabels | DeviceLabelTrigger;
   eventController: EventController | undefined;
