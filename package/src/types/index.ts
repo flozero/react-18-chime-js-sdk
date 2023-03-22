@@ -1,9 +1,6 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+import { AudioInputDevice, VideoInputDevice } from "amazon-chime-sdk-js";
 
-import { AudioInputDevice, VideoInputDevice } from 'amazon-chime-sdk-js';
-
-export type Direction = 'up' | 'right' | 'down' | 'left';
+export type Direction = "up" | "right" | "down" | "left";
 
 export type DeviceType = {
   deviceId: string;
@@ -66,10 +63,10 @@ export type RosterType = {
 };
 
 export enum DeviceLabelTriggerStatus {
-  UNTRIGGERED = 'UNTRIGGERED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  GRANTED = 'GRANTED',
-  DENIED = 'DENIED',
+  UNTRIGGERED = "UNTRIGGERED",
+  IN_PROGRESS = "IN_PROGRESS",
+  GRANTED = "GRANTED",
+  DENIED = "DENIED",
 }
 
 export enum DeviceLabels {

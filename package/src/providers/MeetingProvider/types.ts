@@ -1,9 +1,6 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+import { ActiveSpeakerPolicy, EventController } from "amazon-chime-sdk-js";
 
-import { ActiveSpeakerPolicy, EventController } from 'amazon-chime-sdk-js';
-
-import { DeviceLabels, DeviceLabelTrigger } from '../../types';
+import { DeviceLabels, DeviceLabelTrigger } from "../../types";
 
 export interface MeetingManagerJoinOptions {
   deviceLabels?: DeviceLabels | DeviceLabelTrigger;

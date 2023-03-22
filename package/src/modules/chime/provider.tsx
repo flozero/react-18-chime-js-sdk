@@ -11,19 +11,19 @@ export const useChime = () => useContext(ChimeContext)
 
 export const ChimeProvider = ({ children }: { children: ReactNode }) => {
 
-    const [logger, setLogger] = useState<ConsoleLogger>(new ConsoleLogger('ReactChimeSdk', LogLevel.ERROR))
-    const [deviceController, setDeviceController] = useState<DeviceController>(new DefaultDeviceController(logger))
+	const [logger, setLogger] = useState<ConsoleLogger>(new ConsoleLogger("ReactChimeSdk", LogLevel.ERROR))
+	const [deviceController, setDeviceController] = useState<DeviceController>(new DefaultDeviceController(logger))
 
-    return (
-        <ChimeContext.Provider value={{
-            deviceController,
-            logger
-        }}>
-            <ChimeMicrophoneProvider>
-                { children }
-            </ChimeMicrophoneProvider>
-        </ChimeContext.Provider>
-    )
+	return (
+		<ChimeContext.Provider value={{
+			deviceController,
+			logger
+		}}>
+			<ChimeMicrophoneProvider>
+				{ children }
+			</ChimeMicrophoneProvider>
+		</ChimeContext.Provider>
+	)
 }
 
 

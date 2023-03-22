@@ -1,8 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
-
-import { AudioInputDevice } from 'amazon-chime-sdk-js';
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { AudioInputDevice } from "amazon-chime-sdk-js";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 // import { AudioVideoProvider } from '../AudioVideoProvider';
 // import { ContentShareProvider } from '../ContentShareProvider';
@@ -10,41 +7,33 @@ import React, { createContext, ReactNode, useContext, useState } from 'react';
 // import { FeaturedVideoTileProvider } from '../FeaturedVideoTileProvider';
 // import { LocalAudioOutputProvider } from '../LocalAudioOutputProvider';
 // import { LocalVideoProvider } from '../LocalVideoProvider';
-import { useLogger } from '../LoggerProvider';
+import {useLogger } from "../LoggerProvider";
 // import { MeetingEventProvider } from '../MeetingEventProvider';
 // import { RemoteVideoTileProvider } from '../RemoteVideoTileProvider';
 // import { RosterProvider } from '../RosterProvider';
-import MeetingManager from './MeetingManager';
+import MeetingManager from "./MeetingManager";
 
 interface Props {
   onDeviceReplacement?: (
     nextDevice: string,
     currentDevice: AudioInputDevice
   ) => Promise<AudioInputDevice>;
-  /** Pass a `MeetingManager` instance if you want to share this instance
-   * across multiple different `MeetingProvider`s. This approach has limitations.
-   * Check `meetingManager` prop documentation for more information.
-   */
-  meetingManager?: MeetingManager;
   children: ReactNode
 }
 
 export const MeetingContext = createContext<MeetingManager | null>(null);
 
 export const MeetingProvider = ({
-  onDeviceReplacement,
-  meetingManager: meetingManagerProp,
-  children,
+	onDeviceReplacement,
+	children,
 } : Props) => {
-  const logger = useLogger();
-  const [meetingManager] = useState(
-    () => meetingManagerProp || new MeetingManager(logger)
-  );
+	const logger = useLogger();
+	const [meetingManager] = useState(() => new MeetingManager(logger));
 
-  return (
-    <MeetingContext.Provider value={meetingManager}>
-        { children }
-      {/* <MeetingEventProvider>
+	return (
+		<MeetingContext.Provider value={meetingManager}>
+			{ children }
+			{/* <MeetingEventProvider>
         <AudioVideoProvider>
           <DevicesProvider onDeviceReplacement={onDeviceReplacement}>
             <RosterProvider>
@@ -63,16 +52,16 @@ export const MeetingProvider = ({
           </DevicesProvider>
         </AudioVideoProvider>
       </MeetingEventProvider> */}
-    </MeetingContext.Provider>
-  );
+		</MeetingContext.Provider>
+	);
 };
 
 export const useMeetingManager = (): MeetingManager => {
-  const meetingManager = useContext(MeetingContext);
+	const meetingManager = useContext(MeetingContext);
 
-  if (!meetingManager) {
-    throw new Error('useMeetingManager must be used within MeetingProvider');
-  }
+	if (!meetingManager) {
+		throw new Error("useMeetingManager must be used within MeetingProvider");
+	}
 
-  return meetingManager;
+	return meetingManager;
 };

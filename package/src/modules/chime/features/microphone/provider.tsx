@@ -7,36 +7,36 @@ const ChimeMicrophoneContext = createContext<{
     selectedMicrophone: null | string;
     setSelectedMicrophone: Dispatch<SetStateAction<string | null>>;
     isSettingMicrophone: boolean
-} | null>(null)
+    	} | null>(null)
 
 export const useChimeMicrophone = () => useContext(ChimeMicrophoneContext)
 
 export const ChimeMicrophoneProvider = ({ children } : { children: ReactNode }) => {
 
-    const chime = useChime()
-    const [microphones, setMicrophones] = useState<MediaDeviceInfo[]>([]);
-    const [selectedMicrophone, setSelectedMicrophone] = useState<string | null>(null);
-    const [isSettingMicrophone, setIsSettingMicrophone] = useState(false)
+	const chime = useChime()
+	const [microphones, setMicrophones] = useState<MediaDeviceInfo[]>([]);
+	const [selectedMicrophone, setSelectedMicrophone] = useState<string | null>(null);
+	const [isSettingMicrophone, setIsSettingMicrophone] = useState(false)
 
-    async function fetchMicrophones() {
-        setIsSettingMicrophone(true)
-        const devices = await chime?.deviceController.listAudioInputDevices();
-        setMicrophones([
-            ...(devices as [])
-        ])
-        setIsSettingMicrophone(false)
-        console.log(devices)
-    }
+	async function fetchMicrophones() {
+		setIsSettingMicrophone(true)
+		const devices = await chime?.deviceController.listAudioInputDevices();
+		setMicrophones([
+			...(devices as [])
+		])
+		setIsSettingMicrophone(false)
+		console.log(devices)
+	}
 
-    return (
-        <ChimeMicrophoneContext.Provider value={{
-            microphones,
-            fetchMicrophones,
-            selectedMicrophone,
-            setSelectedMicrophone,
-            isSettingMicrophone
-        }}>
-            { children }
-        </ChimeMicrophoneContext.Provider>
-    )
+	return (
+		<ChimeMicrophoneContext.Provider value={{
+			microphones,
+			fetchMicrophones,
+			selectedMicrophone,
+			setSelectedMicrophone,
+			isSettingMicrophone
+		}}>
+			{ children }
+		</ChimeMicrophoneContext.Provider>
+	)
 }
