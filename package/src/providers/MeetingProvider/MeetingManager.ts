@@ -656,15 +656,11 @@ export class MeetingManager implements AudioVideoObserver {
 		}
 	};
 
-	subscribeToEventDidReceive = (
-		callback: (name: EventName, attributes: EventAttributes) => void
-	): void => {
+	subscribeToEventDidReceive = (callback: (name: EventName, attributes: EventAttributes) => void): void => {
 		this.meetingEventObserverSet.add(callback);
 	};
 
-	unsubscribeFromEventDidReceive = (
-		callbackToRemove: (name: EventName, attributes: EventAttributes) => void
-	): void => {
+	unsubscribeFromEventDidReceive = (callbackToRemove: (name: EventName, attributes: EventAttributes) => void): void => {
 		this.meetingEventObserverSet.delete(callbackToRemove);
 	};
 

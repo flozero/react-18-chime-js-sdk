@@ -1,5 +1,6 @@
 import { MeetingSessionConfiguration, VideoPriorityBasedPolicy, VideoPriorityBasedPolicyConfig } from "amazon-chime-sdk-js"
-import { useMeetingManager, useLogger } from "react-18-amazon-chime-js-sdk"
+import { useEffect } from "react"
+import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo } from "react-18-amazon-chime-js-sdk"
 import { getAttendee, PromiseAttendee } from "../mocks/getAttendee"
 
 declare global {
@@ -9,12 +10,16 @@ declare global {
     }
 }
 
-export const SelectDriverView = () => {
+export const HomeView = () => {
 
     const meetingManager = useMeetingManager()
     meetingManager.getAttendee  = getAttendee
 
     const logger = useLogger()
+    const audioVideo = useAudioVideo()
+    const meetingEvent = useMeetingEvent();
+
+    console.log(audioVideo)
 
     const joinMeeting = async () => {
         if (!meetingManager.getAttendee) throw new Error("no get Attendee defined")
@@ -50,8 +55,28 @@ export const SelectDriverView = () => {
         }
     }
 
+    // const MeetingEventReceiver = () => {
+    //     const meetingEvent = useMeetingEvent();
+    //     console.log('Received a meeting event', meetingEvent);
+    //     return null;
+    // };
+
+    useEffect(() => {
+        if (audioVideo) {
+            console.log("===> audioVideo", audioVideo)
+            // audioVideo.addObserver(...);
+        }
+    }, [audioVideo])
+
+    useEffect(() => {
+        if (meetingEvent) {
+            console.log("===> meetingEvent", meetingEvent)
+        }
+    }, [meetingEvent])
+
     return (
         <div>
+            {/* <MeetingEventReceiver /> */}
             <button onClick={() => joinMeeting()}>Join</button>
         </div>
     )

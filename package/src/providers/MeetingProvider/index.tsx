@@ -1,13 +1,13 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
-// import { AudioVideoProvider } from '../AudioVideoProvider';
+import { AudioVideoProvider } from "../AudioVideoProvider";
 // import { ContentShareProvider } from '../ContentShareProvider';
-// import { DevicesProvider } from '../DevicesProvider';
+import { DevicesProvider } from "../DevicesProvider";
 // import { FeaturedVideoTileProvider } from '../FeaturedVideoTileProvider';
 // import { LocalAudioOutputProvider } from '../LocalAudioOutputProvider';
 // import { LocalVideoProvider } from '../LocalVideoProvider';
 import {useLogger } from "../LoggerProvider";
-// import { MeetingEventProvider } from '../MeetingEventProvider';
+import { MeetingEventProvider } from "../MeetingEventProvider";
 // import { RemoteVideoTileProvider } from '../RemoteVideoTileProvider';
 // import { RosterProvider } from '../RosterProvider';
 import MeetingManager from "./MeetingManager";
@@ -25,10 +25,10 @@ export const MeetingProvider = ({ children } : Props) => {
 	return (
 		<MeetingContext.Provider value={meetingManager}>
 			{ children }
-			{/* <MeetingEventProvider>
-        <AudioVideoProvider>
-          <DevicesProvider onDeviceReplacement={onDeviceReplacement}>
-            <RosterProvider>
+			<MeetingEventProvider>
+				<AudioVideoProvider>
+					<DevicesProvider onDeviceReplacement={onDeviceReplacement}>
+						{/* <RosterProvider>
               <RemoteVideoTileProvider>
                 <LocalVideoProvider>
                   <LocalAudioOutputProvider>
@@ -40,10 +40,10 @@ export const MeetingProvider = ({ children } : Props) => {
                   </LocalAudioOutputProvider>
                 </LocalVideoProvider>
               </RemoteVideoTileProvider>
-            </RosterProvider>
-          </DevicesProvider>
-        </AudioVideoProvider>
-      </MeetingEventProvider> */}
+            </RosterProvider> */}
+					</DevicesProvider>
+				</AudioVideoProvider>
+			</MeetingEventProvider>
 		</MeetingContext.Provider>
 	);
 };
