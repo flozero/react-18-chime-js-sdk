@@ -9,7 +9,7 @@ import { DevicesProvider } from "../DevicesProvider";
 import {useLogger } from "../LoggerProvider";
 import { MeetingEventProvider } from "../MeetingEventProvider";
 // import { RemoteVideoTileProvider } from '../RemoteVideoTileProvider';
-// import { RosterProvider } from '../RosterProvider';
+import { RosterProvider } from "../RosterProvider";
 import MeetingManager from "./MeetingManager";
 
 interface Props {
@@ -24,12 +24,12 @@ export const MeetingProvider = ({ children } : Props) => {
 
 	return (
 		<MeetingContext.Provider value={meetingManager}>
-			{ children }
 			<MeetingEventProvider>
 				<AudioVideoProvider>
-					<DevicesProvider onDeviceReplacement={onDeviceReplacement}>
-						{/* <RosterProvider>
-              <RemoteVideoTileProvider>
+					<DevicesProvider>
+						<RosterProvider>
+							{ children }
+							{/* <RemoteVideoTileProvider>
                 <LocalVideoProvider>
                   <LocalAudioOutputProvider>
                     <ContentShareProvider>
@@ -39,8 +39,8 @@ export const MeetingProvider = ({ children } : Props) => {
                     </ContentShareProvider>
                   </LocalAudioOutputProvider>
                 </LocalVideoProvider>
-              </RemoteVideoTileProvider>
-            </RosterProvider> */}
+              </RemoteVideoTileProvider> */}
+						</RosterProvider>
 					</DevicesProvider>
 				</AudioVideoProvider>
 			</MeetingEventProvider>
