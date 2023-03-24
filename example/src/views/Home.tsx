@@ -4,6 +4,7 @@ import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo } from "re
 import { getAttendee, PromiseAttendee } from "../mocks/getAttendee"
 import { AttendeesListView } from "./AttendeesList"
 import { DevicesListView } from "./DevicesList"
+import { LocalAudioOutputView } from "./LocalAudioOutput"
 import { LocalVideoView } from "./LocalVideo"
 import { TilesVideoView } from "./TileVideo"
 
@@ -76,6 +77,7 @@ export const HomeView = () => {
             <AttendeesListView />
             <TilesVideoView />
             <LocalVideoView />
+            <LocalAudioOutputView />
         </div>
     )
 }
