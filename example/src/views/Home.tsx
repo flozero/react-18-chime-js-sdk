@@ -4,6 +4,7 @@ import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo } from "re
 import { getAttendee, PromiseAttendee } from "../mocks/getAttendee"
 import { AttendeesListView } from "./AttendeesList"
 import { DevicesListView } from "./DevicesList"
+import { LocalVideoView } from "./LocalVideo"
 import { TilesVideoView } from "./TileVideo"
 
 declare global {
@@ -74,6 +75,7 @@ export const HomeView = () => {
             <button onClick={() => joinMeeting()}>Join</button>
             <AttendeesListView />
             <TilesVideoView />
+            <LocalVideoView />
         </div>
     )
 }

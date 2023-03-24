@@ -5,7 +5,7 @@ import { AudioVideoProvider } from "../AudioVideoProvider";
 import { DevicesProvider } from "../DevicesProvider";
 // import { FeaturedVideoTileProvider } from '../FeaturedVideoTileProvider';
 // import { LocalAudioOutputProvider } from '../LocalAudioOutputProvider';
-// import { LocalVideoProvider } from '../LocalVideoProvider';
+import { LocalVideoProvider } from "../LocalVideoProvider";
 import {useLogger } from "../LoggerProvider";
 import { MeetingEventProvider } from "../MeetingEventProvider";
 import { RemoteVideoTileProvider } from "../RemoteVideoTileProvider";
@@ -29,16 +29,16 @@ export const MeetingProvider = ({ children } : Props) => {
 					<DevicesProvider>
 						<RosterProvider>
 							<RemoteVideoTileProvider>
-								{ children }
-								{/* <LocalVideoProvider>
-                  <LocalAudioOutputProvider>
+								<LocalVideoProvider>
+									{ children }
+									{/* <LocalAudioOutputProvider>
                     <ContentShareProvider>
                       <FeaturedVideoTileProvider>
                         {children}
                       </FeaturedVideoTileProvider>
                     </ContentShareProvider>
-                  </LocalAudioOutputProvider>
-                </LocalVideoProvider> */}
+                  </LocalAudioOutputProvider> */}
+								</LocalVideoProvider>
 							</RemoteVideoTileProvider>
 						</RosterProvider>
 					</DevicesProvider>
