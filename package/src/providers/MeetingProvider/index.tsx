@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 import { AudioVideoProvider } from "../AudioVideoProvider";
-// import { ContentShareProvider } from '../ContentShareProvider';
+import { ContentShareProvider } from "../ContentShareProvider";
 import { DevicesProvider } from "../DevicesProvider";
 // import { FeaturedVideoTileProvider } from '../FeaturedVideoTileProvider';
 import { LocalAudioOutputProvider } from "../LocalAudioOutputProvider";
@@ -31,12 +31,12 @@ export const MeetingProvider = ({ children } : Props) => {
 							<RemoteVideoTileProvider>
 								<LocalVideoProvider>
 									<LocalAudioOutputProvider>
-										{ children }
-										{/* <ContentShareProvider>
-                      <FeaturedVideoTileProvider>
+										<ContentShareProvider>
+											{ children }
+											{/* <FeaturedVideoTileProvider>
                         {children}
-                      </FeaturedVideoTileProvider>
-                    </ContentShareProvider> */}
+                      </FeaturedVideoTileProvider> */}
+										</ContentShareProvider>
 									</LocalAudioOutputProvider>
 								</LocalVideoProvider>
 							</RemoteVideoTileProvider>

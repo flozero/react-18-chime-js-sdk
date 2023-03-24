@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo } from "react-18-amazon-chime-js-sdk"
 import { getAttendee, PromiseAttendee } from "../mocks/getAttendee"
 import { AttendeesListView } from "./AttendeesList"
+import { ContentshareView } from "./ContentShare"
 import { DevicesListView } from "./DevicesList"
 import { LocalAudioOutputView } from "./LocalAudioOutput"
 import { LocalVideoView } from "./LocalVideo"
@@ -78,6 +79,7 @@ export const HomeView = () => {
             <TilesVideoView />
             <LocalVideoView />
             <LocalAudioOutputView />
+            <ContentshareView />
         </div>
     )
 }
