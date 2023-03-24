@@ -20,3 +20,5 @@ export * from "./providers/LocalVideoProvider/index"
 export * from "./providers/LocalAudioOutputProvider/index"
 
 export * from "./providers/ContentShareProvider/index"
+
+export * from "./providers/FeaturedVideoTileProvider/index"

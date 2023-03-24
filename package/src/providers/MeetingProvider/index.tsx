@@ -3,7 +3,7 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import { AudioVideoProvider } from "../AudioVideoProvider";
 import { ContentShareProvider } from "../ContentShareProvider";
 import { DevicesProvider } from "../DevicesProvider";
-// import { FeaturedVideoTileProvider } from '../FeaturedVideoTileProvider';
+import { FeaturedVideoTileProvider } from "../FeaturedVideoTileProvider";
 import { LocalAudioOutputProvider } from "../LocalAudioOutputProvider";
 import { LocalVideoProvider } from "../LocalVideoProvider";
 import {useLogger } from "../LoggerProvider";
@@ -12,13 +12,9 @@ import { RemoteVideoTileProvider } from "../RemoteVideoTileProvider";
 import { RosterProvider } from "../RosterProvider";
 import MeetingManager from "./MeetingManager";
 
-interface Props {
-  children: ReactNode
-}
-
 export const MeetingContext = createContext<MeetingManager | null>(null);
 
-export const MeetingProvider = ({ children } : Props) => {
+export const MeetingProvider = ({ children } : { children : ReactNode }) => {
 	const logger = useLogger();
 	const [meetingManager] = useState(() => new MeetingManager(logger));
 
@@ -32,10 +28,9 @@ export const MeetingProvider = ({ children } : Props) => {
 								<LocalVideoProvider>
 									<LocalAudioOutputProvider>
 										<ContentShareProvider>
-											{ children }
-											{/* <FeaturedVideoTileProvider>
-                        {children}
-                      </FeaturedVideoTileProvider> */}
+											<FeaturedVideoTileProvider>
+												{children}
+											</FeaturedVideoTileProvider>
 										</ContentShareProvider>
 									</LocalAudioOutputProvider>
 								</LocalVideoProvider>

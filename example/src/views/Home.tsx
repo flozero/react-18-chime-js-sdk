@@ -5,6 +5,7 @@ import { getAttendee, PromiseAttendee } from "../mocks/getAttendee"
 import { AttendeesListView } from "./AttendeesList"
 import { ContentshareView } from "./ContentShare"
 import { DevicesListView } from "./DevicesList"
+import { FeaturedVideoTileView } from "./FeaturedVideoTile"
 import { LocalAudioOutputView } from "./LocalAudioOutput"
 import { LocalVideoView } from "./LocalVideo"
 import { TilesVideoView } from "./TileVideo"
@@ -80,6 +81,7 @@ export const HomeView = () => {
             <LocalVideoView />
             <LocalAudioOutputView />
             <ContentshareView />
+            <FeaturedVideoTileView />
         </div>
     )
 }
