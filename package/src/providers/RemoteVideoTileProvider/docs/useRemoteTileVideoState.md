@@ -1,0 +1,58 @@
+# useRemoteVideoTileState
+
+The `useRemoteVideoTileState` hook returns the state of remote video tiles of a meeting session.
+
+### Return Value
+
+```javascript
+{
+  // An array of all available remote tile IDs
+  tiles: number[];
+
+  // An object that maps a tile ID to an attendee ID
+  tileIdToAttendeeId: {
+    [key: string]: string;
+  }
+
+  // An object that maps an attendee ID to a tile ID
+  attendeeIdToTileId: {
+    [key: string]: number;
+  };
+
+  // The total number of available remote tiles
+  size: number;
+}
+```
+
+## Importing
+
+```javascript
+import { useRemoteVideoTileState } from 'react-18-amazon-chime-js-sdk';
+```
+
+## Usage
+
+If you are using `MeetingProvider`, the `RemoteVideoTileProvider` is rendered by default.
+
+```jsx
+import React from 'react';
+import {
+  MeetingProvider,
+  useRemoteVideoTileState,
+  RemoteVideo
+} from 'react-18-amazon-chime-js-sdk';
+
+const App = () => (
+  <MeetingProvider>
+    <MyChild />
+  </MeetingProvider>
+);
+
+const MyChild = () => {
+  const { tiles } = useRemoteVideoTileState();
+
+  const videos = tiles.map(tileId => <RemoteVideo tileId={tileId} />);
+
+  return <>{videos}</>;
+};
+```

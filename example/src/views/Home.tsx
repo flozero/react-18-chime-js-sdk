@@ -1,7 +1,10 @@
 import { MeetingSessionConfiguration, VideoPriorityBasedPolicy, VideoPriorityBasedPolicyConfig } from "amazon-chime-sdk-js"
 import { useEffect } from "react"
-import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo, useVideoInputs, useRosterState } from "react-18-amazon-chime-js-sdk"
+import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo } from "react-18-amazon-chime-js-sdk"
 import { getAttendee, PromiseAttendee } from "../mocks/getAttendee"
+import { AttendeesListView } from "./AttendeesList"
+import { DevicesListView } from "./DevicesList"
+import { TilesVideoView } from "./TileVideo"
 
 declare global {
     interface Window {
@@ -13,14 +16,10 @@ declare global {
 export const HomeView = () => {
     const meetingManager = useMeetingManager()
     meetingManager.getAttendee  = getAttendee
-    const { devices, selectedDevice } = useVideoInputs();
-    const items = devices.map((device) => <li>{device.label}</li>);
 
     const logger = useLogger()
     const audioVideo = useAudioVideo()
     const meetingEvent = useMeetingEvent();
-    const { roster } = useRosterState()
-    const attendees = Object.values(roster);
 
     const joinMeeting = async () => {
         if (!meetingManager.getAttendee) throw new Error("no get Attendee defined")
@@ -56,22 +55,6 @@ export const HomeView = () => {
         }
     }
 
-    const attendeeItems = attendees.map(attendee => {
-        const { chimeAttendeeId, name } = attendee;
-        return (
-          <div key={chimeAttendeeId}>
-            {chimeAttendeeId}
-            {name}
-          </div>
-        );
-      });
-
-    // const MeetingEventReceiver = () => {
-    //     const meetingEvent = useMeetingEvent();
-    //     console.log('Received a meeting event', meetingEvent);
-    //     return null;
-    // };
-
     useEffect(() => {
         if (audioVideo) {
             console.log("===> audioVideo", audioVideo)
@@ -87,14 +70,10 @@ export const HomeView = () => {
 
     return (
         <div>
-            {/* <MeetingEventReceiver /> */}
+            <DevicesListView />
             <button onClick={() => joinMeeting()}>Join</button>
-            {attendeeItems}
-            <div>
-                <p> Current Selected Device: { selectedDevice } </p>
-                <p>Devices</p>
-                <ul>{items}</ul>
-            </div>
+            <AttendeesListView />
+            <TilesVideoView />
         </div>
     )
 }

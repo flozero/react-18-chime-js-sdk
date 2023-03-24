@@ -12,3 +12,5 @@ export * from "./providers/AudioVideoProvider/index"
 export * from "./providers/DevicesProvider/index"
 
 export * from "./providers/RosterProvider/index"
+
+export * from "./providers/RemoteVideoTileProvider/index"
