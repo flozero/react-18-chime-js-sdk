@@ -17,7 +17,7 @@ import { useMeetingManager } from "../MeetingProvider";
 
 const Context = createContext<LocalVideoContextType | null>(null);
 
-export const LocalVideoProvider = ({ children } : { children: ReactNode }) => {
+export const LocalVideoProvider = ({ children }: { children: ReactNode }) => {
 	const logger = useLogger();
 	const meetingManager = useMeetingManager();
 	const audioVideo = useAudioVideo();
@@ -90,8 +90,8 @@ export const LocalVideoProvider = ({ children } : { children: ReactNode }) => {
 			videoTileDidUpdate: (tileState: VideoTileState) => {
 				if (
 					!tileState.localTile ||
-                    !tileState.tileId ||
-                    tileId === tileState.tileId
+          !tileState.tileId ||
+          tileId === tileState.tileId
 				) {
 					return;
 				}

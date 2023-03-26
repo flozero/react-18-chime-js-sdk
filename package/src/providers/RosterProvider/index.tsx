@@ -6,12 +6,12 @@ import { useAudioVideo } from "../AudioVideoProvider";
 import { useMeetingManager } from "../MeetingProvider";
 
 interface RosterContextValue {
-    roster: RosterType;
+  roster: RosterType;
 }
 
 const RosterContext = React.createContext<RosterContextValue | null>(null);
 
-export const RosterProvider = ({ children } : { children: ReactNode }) => {
+export const RosterProvider = ({ children }: { children: ReactNode }) => {
 	const meetingManager = useMeetingManager();
 	const audioVideo = useAudioVideo();
 	const rosterRef = useRef<RosterType>({});
@@ -101,7 +101,7 @@ export const RosterProvider = ({ children } : { children: ReactNode }) => {
 	);
 };
 
-export const useRosterState = () : RosterContextValue => {
+export const useRosterState = (): RosterContextValue => {
 	const state = useContext(RosterContext);
 
 	if (!state) {

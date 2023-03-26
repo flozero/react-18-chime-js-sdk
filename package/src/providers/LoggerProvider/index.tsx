@@ -2,10 +2,11 @@ import { ConsoleLogger, Logger, LogLevel } from "amazon-chime-sdk-js";
 import React, { ReactNode, useContext } from "react";
 
 const consoleLogger: Logger = new ConsoleLogger(
-	"ChimeSDKReact",
+	"ChimeSDKReactComponent",
 	LogLevel.INFO
 );
-export const LoggerContext = React.createContext<Logger>(consoleLogger);
+
+const LoggerContext = React.createContext<Logger>(consoleLogger);
 
 interface Props {
   logger: Logger;

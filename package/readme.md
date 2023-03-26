@@ -1,1 +1,0 @@
-# React 18 package for amazon chime sdk

@@ -1,3 +1,4 @@
+import { AudioInputDevice } from "amazon-chime-sdk-js";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 import { AudioVideoProvider } from "../AudioVideoProvider";
@@ -6,23 +7,42 @@ import { DevicesProvider } from "../DevicesProvider";
 import { FeaturedVideoTileProvider } from "../FeaturedVideoTileProvider";
 import { LocalAudioOutputProvider } from "../LocalAudioOutputProvider";
 import { LocalVideoProvider } from "../LocalVideoProvider";
-import {useLogger } from "../LoggerProvider";
+import { useLogger } from "../LoggerProvider";
 import { MeetingEventProvider } from "../MeetingEventProvider";
 import { RemoteVideoTileProvider } from "../RemoteVideoTileProvider";
 import { RosterProvider } from "../RosterProvider";
 import MeetingManager from "./MeetingManager";
 
-export const MeetingContext = createContext<MeetingManager | null>(null);
+interface Props {
+	children: ReactNode;
+  onDeviceReplacement?: (
+    nextDevice: string,
+    currentDevice: AudioInputDevice
+  ) => Promise<AudioInputDevice>;
+  /** Pass a `MeetingManager` instance if you want to share this instance
+   * across multiple different `MeetingProvider`s. This approach has limitations.
+   * Check `meetingManager` prop documentation for more information.
+   */
+  meetingManager?: MeetingManager;
+}
 
-export const MeetingProvider = ({ children } : { children : ReactNode }) => {
+const MeetingContext = createContext<MeetingManager | null>(null);
+
+export const MeetingProvider = ({
+	onDeviceReplacement,
+	meetingManager: meetingManagerProp,
+	children,
+} : Props) => {
 	const logger = useLogger();
-	const [meetingManager] = useState(() => new MeetingManager(logger));
+	const [meetingManager] = useState(
+		() => meetingManagerProp || new MeetingManager(logger)
+	);
 
 	return (
 		<MeetingContext.Provider value={meetingManager}>
 			<MeetingEventProvider>
 				<AudioVideoProvider>
-					<DevicesProvider>
+					<DevicesProvider onDeviceReplacement={onDeviceReplacement}>
 						<RosterProvider>
 							<RemoteVideoTileProvider>
 								<LocalVideoProvider>
@@ -52,3 +72,5 @@ export const useMeetingManager = (): MeetingManager => {
 
 	return meetingManager;
 };
+
+export * from "./types"

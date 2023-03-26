@@ -1,43 +1,46 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 type tileMap = {
-    [key: string]: string;
+  [key: string]: string;
 };
 
 type attendeeMap = {
-    [key: string]: number;
+  [key: string]: number;
 };
 
 export type State = {
-    tiles: number[];
-    tileIdToAttendeeId: tileMap;
-    attendeeIdToTileId: attendeeMap;
-    size: number;
+  tiles: number[];
+  tileIdToAttendeeId: tileMap;
+  attendeeIdToTileId: attendeeMap;
+  size: number;
 };
 
 export enum VideoTileActionType {
-    UPDATE,
-    REMOVE,
-    RESET,
+  UPDATE,
+  REMOVE,
+  RESET,
 }
 
 type UpdateAction = {
-    type: VideoTileActionType.UPDATE;
-    payload: {
-        tileId: number;
-        attendeeId: string;
-    };
+  type: VideoTileActionType.UPDATE;
+  payload: {
+    tileId: number;
+    attendeeId: string;
+  };
 };
 
 type RemoveAction = {
-    type: VideoTileActionType.REMOVE;
-    payload: {
-        tileId: number;
-        attendeeId?: string;
-    };
+  type: VideoTileActionType.REMOVE;
+  payload: {
+    tileId: number;
+    attendeeId?: string;
+  };
 };
 
 type ResetAction = {
-    type: VideoTileActionType.RESET;
-    payload?: any;
+  type: VideoTileActionType.RESET;
+  payload?: any;
 };
 
 export type Action = UpdateAction | RemoveAction | ResetAction;

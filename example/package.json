@@ -11,8 +11,9 @@
   "dependencies": {
     "amazon-chime-sdk-js": "^3.11.0",
     "react": "^18.2.0",
+    "react-18-amazon-chime-js-sdk": "file:../package",
     "react-dom": "^18.2.0",
-    "react-18-amazon-chime-js-sdk": "file:../package"
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

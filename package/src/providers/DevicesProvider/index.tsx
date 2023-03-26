@@ -4,14 +4,20 @@ import { AudioInputProvider, useAudioInputs } from "./AudioInputProvider";
 import { AudioOutputProvider, useAudioOutputs } from "./AudioOutputProvider";
 import { useVideoInputs, VideoInputProvider } from "./VideoInputProvider";
 
-const DevicesProvider = ({ children } : { children: ReactNode }) => (
-	<AudioInputProvider>
+interface Props {
+	children: ReactNode;
+	onDeviceReplacement: any
+}
+
+export const DevicesProvider = ({
+	children,
+	onDeviceReplacement,
+}: Props) => (
+	<AudioInputProvider onDeviceReplacement={onDeviceReplacement}>
 		<AudioOutputProvider>
-			<VideoInputProvider>
-				{ children }
-			</VideoInputProvider>
+			<VideoInputProvider>{children}</VideoInputProvider>
 		</AudioOutputProvider>
 	</AudioInputProvider>
 );
 
-export { DevicesProvider, useAudioInputs, useAudioOutputs, useVideoInputs };
+export { useAudioInputs, useAudioOutputs, useVideoInputs };

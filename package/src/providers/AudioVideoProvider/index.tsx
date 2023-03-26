@@ -1,13 +1,13 @@
+
 import { AudioVideoFacade } from "amazon-chime-sdk-js";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-
 import { useMeetingManager } from "../MeetingProvider";
 
 type AudioVideoValue = AudioVideoFacade | null;
 
-export const AudioVideoContext = createContext<AudioVideoValue>(null);
+const AudioVideoContext = createContext<AudioVideoValue>(null);
 
-export const AudioVideoProvider= ({ children } : { children: ReactNode }) => {
+export const AudioVideoProvider = ({ children } : { children: ReactNode }) => {
 	const meetingManager = useMeetingManager();
 	const [audioVideo, setAudioVideo] = useState<AudioVideoValue>(null);
 
@@ -28,4 +28,8 @@ export const AudioVideoProvider= ({ children } : { children: ReactNode }) => {
 	);
 };
 
-export const useAudioVideo = (): AudioVideoValue => useContext(AudioVideoContext);
+export const useAudioVideo = (): AudioVideoValue => {
+	const audioVideo = useContext(AudioVideoContext);
+
+	return audioVideo;
+};

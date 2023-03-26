@@ -1,6 +1,6 @@
 import { MeetingSessionConfiguration, VideoPriorityBasedPolicy, VideoPriorityBasedPolicyConfig } from "amazon-chime-sdk-js"
 import { useEffect } from "react"
-import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo } from "react-18-amazon-chime-js-sdk"
+import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo, Badge } from "react-18-amazon-chime-js-sdk"
 import { getAttendee, PromiseAttendee } from "../mocks/getAttendee"
 import { AttendeesListView } from "./AttendeesList"
 import { ContentshareView } from "./ContentShare"
@@ -74,6 +74,7 @@ export const HomeView = () => {
 
     return (
         <div>
+            <Badge value={"bonjour"} />
             <DevicesListView />
             <button onClick={() => joinMeeting()}>Join</button>
             <AttendeesListView />

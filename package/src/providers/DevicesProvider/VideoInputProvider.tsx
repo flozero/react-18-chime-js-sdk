@@ -15,14 +15,14 @@ import { useMeetingManager } from "../MeetingProvider";
 
 const Context = createContext<VideoInputContextType | null>(null);
 
-export const VideoInputProvider = ({ children } : { children: ReactNode }) => {
+export const VideoInputProvider = ({ children }: { children: ReactNode }) => {
 	const logger = useLogger();
 	const audioVideo = useAudioVideo();
 	const [videoInputs, setVideoInputs] = useState<MediaDeviceInfo[]>([]);
 	const meetingManager = useMeetingManager();
 	const [selectedVideoInputDevice, setSelectedVideoInputDevice] = useState<
     VideoInputDevice | undefined
->(meetingManager.selectedVideoInputDevice);
+  >(meetingManager.selectedVideoInputDevice);
 
 	useEffect(() => {
 		meetingManager.subscribeToSelectedVideoInputDevice(

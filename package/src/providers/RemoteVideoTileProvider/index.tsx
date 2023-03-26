@@ -6,7 +6,7 @@ import { initialState, reducer, State, VideoTileActionType } from "./state";
 
 const Context = createContext<State | null>(null);
 
-export const RemoteVideoTileProvider = ({ children } : { children: ReactNode }) => {
+export const RemoteVideoTileProvider = ({ children }: { children: ReactNode }) => {
 	const audioVideo = useAudioVideo();
 	const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -19,9 +19,9 @@ export const RemoteVideoTileProvider = ({ children } : { children: ReactNode }) 
 			videoTileDidUpdate: (tileState): void => {
 				if (
 					tileState?.boundAttendeeId &&
-                    tileState?.tileId &&
-                    !tileState.isContent &&
-                    !tileState.localTile
+          tileState?.tileId &&
+          !tileState.isContent &&
+          !tileState.localTile
 				) {
 					const { tileId, boundAttendeeId } = tileState;
 					dispatch({

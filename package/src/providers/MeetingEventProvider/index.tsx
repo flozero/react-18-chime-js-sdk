@@ -1,7 +1,7 @@
 import { EventAttributes, EventName } from "amazon-chime-sdk-js";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
-import { useMeetingManager } from "../MeetingProvider/index";
+import { useMeetingManager } from "../MeetingProvider";
 
 type MeetingEventProviderContextType =
   | {
@@ -10,14 +10,12 @@ type MeetingEventProviderContextType =
     }
   | undefined;
 
-export const MeetingEventProviderContext = createContext<MeetingEventProviderContextType>(undefined);
+const MeetingEventProviderContext =
+  createContext<MeetingEventProviderContextType>(undefined);
 
-type Props = {
-  children: ReactNode
-}
-
-export const MeetingEventProvider = ({ children } : Props) => {
-	const [meetingEvent, setMeetingEvent] = useState<MeetingEventProviderContextType>();
+export const MeetingEventProvider = ({ children }: { children: ReactNode }) => {
+	const [meetingEvent, setMeetingEvent] =
+    useState<MeetingEventProviderContextType>();
 	const meetingManager = useMeetingManager();
 
 	useEffect(() => {
@@ -37,10 +35,12 @@ export const MeetingEventProvider = ({ children } : Props) => {
 
 	return (
 		<MeetingEventProviderContext.Provider value={meetingEvent}>
-			{ children }
+			{children}
 		</MeetingEventProviderContext.Provider>
-	)
+	);
 };
 
-export const useMeetingEvent = (): MeetingEventProviderContextType => useContext(MeetingEventProviderContext);
-
+export const useMeetingEvent = (): MeetingEventProviderContextType => {
+	const meetingEvent = useContext(MeetingEventProviderContext);
+	return meetingEvent;
+};

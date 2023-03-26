@@ -17,9 +17,20 @@ import { useAudioVideo } from "../AudioVideoProvider";
 import { useLogger } from "../LoggerProvider";
 import { useMeetingManager } from "../MeetingProvider";
 
+interface Props {
+  onDeviceReplacement?: (
+    nextDevice: string,
+    currentDevice: AudioInputDevice | undefined
+  ) => Promise<AudioInputDevice>;
+  children: ReactNode
+}
+
 const Context = createContext<AudioInputContextType | null>(null);
 
-export const AudioInputProvider = ({ children } : { children: ReactNode }) => {
+export const AudioInputProvider = ({
+	children,
+	onDeviceReplacement,
+}: Props) => {
 	const logger = useLogger();
 	const meetingManager = useMeetingManager();
 	const audioVideo = useAudioVideo();
@@ -31,6 +42,12 @@ export const AudioInputProvider = ({ children } : { children: ReactNode }) => {
 	selectedInputRef.current = selectedAudioInputDevice;
 
 	const replaceDevice = async (device: string): Promise<AudioInputDevice> => {
+		if (onDeviceReplacement) {
+			return onDeviceReplacement(
+				device,
+				meetingManager.selectedAudioInputDevice
+			);
+		}
 		return device;
 	};
 
@@ -60,8 +77,8 @@ export const AudioInputProvider = ({ children } : { children: ReactNode }) => {
 				let nextInput = "default";
 				if (
 					selectedInputRef.current &&
-            !hasSelectedDevice &&
-            newAudioInputs.length
+          !hasSelectedDevice &&
+          newAudioInputs.length
 				) {
 					logger.info(
 						"Previously selected audio input lost. Selecting a default device."
@@ -115,7 +132,7 @@ export const AudioInputProvider = ({ children } : { children: ReactNode }) => {
 			audioVideo?.removeDeviceChangeObserver(observer);
 			meetingManager.unsubscribeFromDeviceLabelTrigger(callback);
 		};
-	}, [audioVideo]);
+	}, [audioVideo, onDeviceReplacement]);
 
 	const contextValue: AudioInputContextType = useMemo(
 		() => ({

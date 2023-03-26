@@ -20,9 +20,10 @@ import {
 } from "./state";
 
 const ContentShareContext = createContext<ContentShareState | null>(null);
-const ContentShareControlContext = createContext<ContentShareControlContextType | null>(null);
+const ContentShareControlContext =
+  createContext<ContentShareControlContextType | null>(null);
 
-export  const ContentShareProvider = ({ children } : { children: ReactNode }) => {
+export const ContentShareProvider = ({ children }: { children: ReactNode }) => {
 	const audioVideo = useAudioVideo();
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { paused, isLocalUserSharing, isLocalShareLoading } = state;
@@ -37,8 +38,8 @@ export  const ContentShareProvider = ({ children } : { children: ReactNode }) =>
 			videoTileDidUpdate: (tileState: VideoTileState) => {
 				if (
 					!tileState.boundAttendeeId ||
-                    !tileState.isContent ||
-                    !tileState.tileId
+          !tileState.isContent ||
+          !tileState.tileId
 				) {
 					return;
 				}
@@ -51,8 +52,8 @@ export  const ContentShareProvider = ({ children } : { children: ReactNode }) =>
 
 				if (
 					!isLocalUser &&
-                    localUserTileIdRef.current &&
-                    localUserTileIdRef.current < tileState.tileId
+          localUserTileIdRef.current &&
+          localUserTileIdRef.current < tileState.tileId
 				) {
 					audioVideo.stopContentShare();
 					localUserTileIdRef.current = null;

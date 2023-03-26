@@ -1,0 +1,33 @@
+import { Preview, Props } from '@storybook/addon-docs/blocks';
+import { ThemeProvider } from 'styled-components';
+
+import Clock from './';
+import { lightTheme } from '../../../../theme/';
+import { GlobalStyles } from '../../../../theme/GlobalStyles';
+
+# Clock Icon
+
+The Clock component creates a clock icon using inline SVG.
+
+## Importing
+
+```javascript
+import { Clock } from 'amazon-chime-sdk-component-library-react';
+```
+
+## Example
+
+<ThemeProvider theme={lightTheme}>
+  <GlobalStyles />
+  <Preview>
+    <Clock width="2rem" />
+  </Preview>
+</ThemeProvider>
+
+```jsx
+<Clock width="2rem" />
+```
+
+## Props
+
+<Props of={Clock} />
