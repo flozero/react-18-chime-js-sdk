@@ -5,10 +5,10 @@ const root = () => {
   return (
     <>
       <AppThemeProvider>
-        <MeetingProvider>
-            <HomeView />
-        </MeetingProvider>
-      </AppThemeProvider>
+          <MeetingProvider>
+              <HomeView />
+          </MeetingProvider>
+      </AppThemeProvider> 
     </>
   )
 }

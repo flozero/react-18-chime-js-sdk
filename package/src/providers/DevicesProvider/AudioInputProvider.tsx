@@ -77,8 +77,8 @@ export const AudioInputProvider = ({
 				let nextInput = "default";
 				if (
 					selectedInputRef.current &&
-          !hasSelectedDevice &&
-          newAudioInputs.length
+					!hasSelectedDevice &&
+					newAudioInputs.length
 				) {
 					logger.info(
 						"Previously selected audio input lost. Selecting a default device."

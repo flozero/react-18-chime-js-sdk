@@ -1,14 +1,18 @@
 import { MeetingSessionConfiguration, VideoPriorityBasedPolicy, VideoPriorityBasedPolicyConfig } from "amazon-chime-sdk-js"
-import { useEffect } from "react"
-import { useMeetingManager, useLogger, useMeetingEvent, useAudioVideo, Badge } from "react-18-amazon-chime-js-sdk"
+import { useEffect, useState } from "react"
+import { useMeetingManager, useLogger, Heading, Button, Flex, useMeetingStatus, MeetingStatus } from "react-18-amazon-chime-js-sdk"
+import { AppControlBar } from "../components/ControlBar"
 import { getAttendee, PromiseAttendee } from "../mocks/getAttendee"
-import { AttendeesListView } from "./AttendeesList"
-import { ContentshareView } from "./ContentShare"
-import { DevicesListView } from "./DevicesList"
-import { FeaturedVideoTileView } from "./FeaturedVideoTile"
-import { LocalAudioOutputView } from "./LocalAudioOutput"
-import { LocalVideoView } from "./LocalVideo"
-import { TilesVideoView } from "./TileVideo"
+import { AttendeesListView } from "./examples/AttendeesList"
+import { ContentshareView } from "./examples/ContentShare"
+import { DevicesListView } from "./examples/DevicesList"
+import { FeaturedVideoTileView } from "./examples/FeaturedVideoTile"
+import { LocalAudioOutputView } from "./examples/LocalAudioOutput"
+import { LocalVideoView } from "./examples/LocalVideo"
+import { TilesVideoView } from "./examples/TileVideo"
+
+import "./Home.css"
+import { InMeeting } from "./InMeeting"
 
 declare global {
     interface Window {
@@ -22,10 +26,11 @@ export const HomeView = () => {
     meetingManager.getAttendee  = getAttendee
 
     const logger = useLogger()
-    const audioVideo = useAudioVideo()
-    const meetingEvent = useMeetingEvent();
+    // const audioVideo = useAudioVideo()
+    // const meetingEvent = useMeetingEvent();
 
     const joinMeeting = async () => {
+        setIsJoining(true)
         if (!meetingManager.getAttendee) throw new Error("no get Attendee defined")
         try {
             const data: PromiseAttendee = await meetingManager.getAttendee("")
@@ -37,7 +42,7 @@ export const HomeView = () => {
             
             // Amount of time for the current attendee the system have to wait to consider that the connection failed
             // usefull for poor network or slow devices
-            meetingSessionConfiguration.attendeePresenceTimeoutMs = 120;
+            // meetingSessionConfiguration.attendeePresenceTimeoutMs = 120;
             
             // not sure yet how we should use this 
             meetingSessionConfiguration.videoDownlinkBandwidthPolicy = new VideoPriorityBasedPolicy(
@@ -59,30 +64,73 @@ export const HomeView = () => {
         }
     }
 
-    useEffect(() => {
-        if (audioVideo) {
-            console.log("===> audioVideo", audioVideo)
-            // audioVideo.addObserver(...);
-        }
-    }, [audioVideo])
+    // useEffect(() => {
+    //     if (audioVideo) {
+    //         console.log("===> audioVideo", audioVideo)
+    //         // audioVideo.addObserver(...);
+    //     }
+    // }, [audioVideo])
 
-    useEffect(() => {
-        if (meetingEvent) {
-            console.log("===> meetingEvent", meetingEvent)
+    // useEffect(() => {
+    //     if (meetingEvent) {
+    //         console.log("===> meetingEvent", meetingEvent)
+    //     }
+    // }, [meetingEvent])
+
+    const meetingStatus = useMeetingStatus()
+    const [ isJoining, setIsJoining ] = useState(false)
+
+    const meetingViewBaseOnStatus = (status: MeetingStatus) => {
+        let render = <div>none</div>
+        switch (status) {
+            case MeetingStatus.Loading:
+                render = 
+                    <div>
+                        <Heading level={3} css="margin-bottom: 1rem;">
+                            You are about to join the session
+                        </Heading>
+                        <div className="SpinnerContainer">
+                            <div className="SpinnerContainer__spinner"></div>
+                        </div>
+                    </div>
+                break;
+            case MeetingStatus.Succeeded:
+                render = <InMeeting />   
+                break;
+            case MeetingStatus.Ended:
+                render =
+                <div>
+                    Meeting ended
+                </div>
+                break;
+            default:
+                render = 
+                    <div>
+                        { status }
+                    </div>
+                break;
         }
-    }, [meetingEvent])
+
+        return render
+    }
+
 
     return (
-        <div>
-            <Badge value={"bonjour"} />
-            <DevicesListView />
-            <button onClick={() => joinMeeting()}>Join</button>
-            <AttendeesListView />
-            <TilesVideoView />
-            <LocalVideoView />
-            <LocalAudioOutputView />
-            <ContentshareView />
-            <FeaturedVideoTileView />
-        </div>
+        <Flex layout="fill-space">
+            <div style={{
+                height: "calc(100% - 5rem)",
+                width: "100%",
+            }}>
+                <Flex layout="fill-space-centered">
+                    { !isJoining 
+                        ? <div>
+                            <Button label="Join session" onClick={joinMeeting}/>
+                        </div>
+                        : meetingViewBaseOnStatus(meetingStatus)
+                    }
+                </Flex>
+            </div>
+            <AppControlBar />
+        </Flex>
     )
 }
