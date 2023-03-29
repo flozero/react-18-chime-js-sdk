@@ -6,18 +6,6 @@ This will take inspiration from the [react 17 project](https://github.com/aws/am
 
 The idea is to keep simple and not create too much abstraction
 
-## Plan / Roadmap
-
-- Setup sponsors and explanation of sponsor goal
-- Creating basic providers and validate how states are going to be handled
-- Creating technical doc
-- Creating examples usage project
-- Putting this here but will try to add at least 80% testing coverage
-- Creating npm package or github package
-- Creating UI library for react
-- Creating in depth doc base on sponsoring
-- Creating videos base on sponsoring
-
 ## How sponsoring will work for this project
 
 Dear fellow developers,
